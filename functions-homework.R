@@ -1,7 +1,7 @@
 #PSYC 259 Homework - Writing functions and iteration
-#For full credit, answer at least 5/7 questions
+#For full credit, answer at least 4/7 questions
 
-#List names of students collaborating with: 
+#List names of students collaborating with: Siyan Nussbaum
 
 ### SETUP: RUN THIS BEFORE STARTING ----------
 library(tidyverse)
@@ -19,6 +19,11 @@ ds <- tibble(id, x, y, z)
 #The function should take a vector as input and return the replaced-vector as an output
 #Then, run the function on x and save the results to a new vector "x_replace" to show it worked
 
+limit_replace <- function(i) {
+  ifelse (i < 2 | i > 8, NA, i)
+}
+x_replace <- limit_replace(x)
+x_replace
 
 ### Question 2 ---------- 
 
@@ -26,6 +31,12 @@ ds <- tibble(id, x, y, z)
 #so that the limits can be specified (instead of being hard coded as 2 and 8)
 #Run the function on vector y with boundaries 4 and 6, saving the results to a new vector "y_replace"
 
+limit_replace <- function(i, lower, upper) {
+  ifelse (i < lower | i > upper, NA, i)
+}
+
+y_replace <- limit_replace(y, 4, 6)
+y_replace
 
 ### Question 3 ----------
 
@@ -36,10 +47,19 @@ ds <- tibble(id, x, y, z)
 #The output should be a named list two values, lower and upper.
 #Running plus_minus_SD(x) should produce: $lower 2.142724 $upper 8.048324
 
+plus_minus_SD <- function(i, num_of_SDs = 1){
+  upper <- mean(i) + num_of_SDs * sd(i)
+  lower <- mean(i) - num_of_SDs * sd(i)
+  list(upper = upper, lower = lower)
+}
+
+plus_minus_SD(x)
 
 ### Question 4 ----------
 # Use a map function to run the new function on x, y, and z with 1 SD
 
+list <- c(x, y, x)
+map(list, plus_minus_SD)
 
 ### Question 5 ----------
 
@@ -48,6 +68,7 @@ ds <- tibble(id, x, y, z)
 # If they are not given, use +/- 1 SD as the boundaries (from your plus_minus_SD function)
 # Apply the function to each column in ds, and save the results to a new tibble called "ds_replace"
 # Hint: you will need an if() statement to handle what to do if boundaries are not given
+
 
 
 ### Question 6 ----------
